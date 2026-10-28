@@ -477,6 +477,8 @@ def main():
         if OUT_ART: open(os.path.join(OUT_ART, name), 'w', encoding='utf-8').write(art)
     write_crawl_files()
     open(os.path.join(OUT_SITE, '.nojekyll'), 'w').close()
+    # GitHub Pages 연결 도메인 (www.에이스드론.com)
+    open(os.path.join(OUT_SITE, 'CNAME'), 'w').write('www.xn--hy1bs0eh1l1id9rc.com\n')
     print('ok', sorted(os.listdir(OUT_SITE)))
 
 main()

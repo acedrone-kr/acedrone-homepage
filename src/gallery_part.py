@@ -5,6 +5,8 @@
 import html as _html
 # 크게 보기 원본 사진 위치 (현재: 예전 카페24 서버. 사진을 옮기면 '' 로 바꾸고 원본을 이 저장소에 넣으면 됩니다)
 FULL_BASE = 'https://acedrone.cafe24.com'
+# 원본을 옮겨온 사진은 images/gallery/full/ 에서, 아직 못 옮긴 사진만 예전 서버에서 불러옵니다.
+FULL = json.load(open(os.path.join(ROOT, 'full.json'), encoding='utf-8'))
 ALBUMS = json.load(open(os.path.join(ROOT, 'albums.json'), encoding='utf-8'))
 THUMBS = json.load(open(os.path.join(ROOT, 'thumbs.json'), encoding='utf-8'))
 GCATS = [('news', '언론 보도', 'Press'), ('event', '교육·행사', 'Events'), ('student', '수료생', 'Graduates'), ('place', '교육장', 'Facility')]
@@ -22,7 +24,7 @@ def gallery_data():
     for a in ALBUMS:
         out.append({'t': a['title'], 'd': _fmt(a['date']), 'x': a.get('text') or '', 'l': a.get('link') or '',
                     'v': ('https://youtu.be/' + a['video']) if a.get('video') else '',
-                    'i': [[_th(p), FULL_BASE + p] for p in a['imgs']]})
+                    'i': [[_th(p), FULL.get(p) or (FULL_BASE + p if p.startswith('/') else p)] for p in a['imgs']]})
     return '<script type="application/json" id="gdata">' + json.dumps(out, ensure_ascii=False).replace('</', '<\\/') + '</script>'
 
 def _src_label(a):

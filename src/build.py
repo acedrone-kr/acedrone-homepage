@@ -391,7 +391,8 @@ def structured(name, title):
 def seo_head(name, title):
     url = DOMAIN + '/' + ('' if name == 'index.html' else name)
     d = DESC[name]
-    return '''<meta name="description" content="%s">
+    return '''<meta name="naver-site-verification" content="5b5b9a02e9658df27cca956369ace3d30c6db346">
+<meta name="description" content="%s">
 <link rel="canonical" href="%s">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="에이스드론">
